@@ -1,6 +1,7 @@
 # README #
 
 Simple custom MSP430F5529 bootloader for mspgcc.
+This bootloader was a successful attempt to provide remote re-programming of the weather station based on this great microcontroller. In short, the bootloader when instructed reflashes the main app region with the download region's content preceded by backing up the original application so that if the new app fails the device can be recovered automatically. Downloading the new application to the download region has to be provided by the app itself, it's not part of this bootloader.
 
 ## How to set things up? A short demo
 Download, build, connect your MSP430F5529-LP, go to Debug directory and issue:
@@ -35,8 +36,8 @@ The main MCU's vector table (`0xFF80-0xFFFD`) is available for the application, 
 
 The bootloader expects the download image to start at `0x14400` and its vector table at `0x1C380`. While reflashing (`image status flag = BL_IMAGE_DOWNLOAD`) the bootloader takes care of preserving the bootloader's reset vector and storing the application's reset vector at `0xFF7E` so the only thing your application needs to do is to put the image to `0x14400 - 0x1C37F` and the vector table to `0x1C380 - 0x1C3FF`.
 
-They say a picture is worth a thousand words, so here it comes:
+A picture is worth a thousand words, so here it is:
 
-![memmap.png](https://bitbucket.org/repo/4MXppE/images/2425935257-memmap.png)
+![msp430loader memory map](memmap.png)
 
 Now, looking at the .read files you can deduct the rest. Else, let me know to enhance this readme.
