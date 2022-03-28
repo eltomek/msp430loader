@@ -1,0 +1,7 @@
+erase segment 0x1900 1
+prog bootloader.elf
+erase segment 0xff7e 1
+erase segment 0xff80 1
+read ../test_app_red.read
+read ../test_app_green.read
+reset
